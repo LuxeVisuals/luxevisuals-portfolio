@@ -1,1 +1,118 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LuxeVisuals — About</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: #7A5E28;
+    --black: #080808;
+    --surface: #101010;
+    --surface2: #161616;
+    --border: rgba(201,168,76,0.18);
+    --border-strong: rgba(201,168,76,0.4);
+    --text: #F0EAD6;
+    --text-muted: #8A7F6A;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Jost', sans-serif;
+  }
+
+  body { background: var(--black); color: var(--text); font-family: var(--font-body); font-weight: 300; line-height: 1.7; min-height: 100vh; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem; background: rgba(8,8,8,0.88); backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .nav-logo { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; letter-spacing: 0.12em; color: var(--gold); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; padding: 0.5rem 1rem; border: 0.5px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  .nav-links a:hover { color: var(--gold); border-color: var(--border-strong); }
+
+  /* ABOUT SECTION */
+  .about {
+    padding: 10rem 4rem 6rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+    max-width: 1200px; margin: 0 auto; align-items: center;
+  }
+  .section-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .section-title { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; line-height: 1.1; color: var(--text); margin-bottom: 1.5rem; }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .about-body { font-size: 0.82rem; color: var(--text-muted); letter-spacing: 0.03em; line-height: 2; margin-bottom: 2rem; }
+  .about-visual { position: relative; display: flex; align-items: center; justify-content: center; }
+  .about-frame { position: relative; width: 340px; height: 340px; border: 0.5px solid var(--border-strong); display: flex; align-items: center; justify-content: center; }
+  .about-frame::before { content: ''; position: absolute; inset: 10px; border: 0.5px solid var(--border); }
+  .monogram-svg { width: 180px; height: 180px; opacity: 0.9; }
+  .corner-accent { position: absolute; width: 20px; height: 20px; border-color: var(--gold); border-style: solid; }
+  .ca-tl { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+  .ca-tr { top: -1px; right: -1px; border-width: 1px 1px 0 0; }
+  .ca-bl { bottom: -1px; left: -1px; border-width: 0 0 1px 1px; }
+  .ca-br { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between;
+    border-top: 0.5px solid var(--border); max-width: 1200px; margin: 0 auto;
+  }
+  .footer-logo { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; letter-spacing: 0.12em; color: var(--gold); }
+  .footer-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .footer-links a { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .discord-info { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+  .footer-copy { font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">LuxeVisuals</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="services.html">Services</a></li>
+  </ul>
+</nav>
+
+<section class="about" id="about">
+  <div>
+    <p class="section-label">The Designer</p>
+    <h2 class="section-title">Precision in<br><em>every pixel</em></h2>
+    <p class="about-body">LuxeVisuals is a dedicated Roblox UI designer with a passion for creating polished, immersive interfaces that blend aesthetic refinement with intuitive function. Every project is approached with the same obsessive attention to detail — because players notice the difference.</p>
+    <p class="about-body">Specialising in high-end UI systems, HUDs, menus, and branding that sets games apart.</p>
+  </div>
+  <div class="about-visual">
+    <div class="about-frame">
+      <span class="corner-accent ca-tl"></span>
+      <span class="corner-accent ca-tr"></span>
+      <span class="corner-accent ca-bl"></span>
+      <span class="corner-accent ca-br"></span>
+      <svg class="monogram-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#E8C97A"/><stop offset="50%" stop-color="#C9A84C"/><stop offset="100%" stop-color="#7A5E28"/>
+          </linearGradient>
+        </defs>
+        <text x="100" y="130" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="110" font-weight="300" fill="url(#goldGrad)" letter-spacing="-8">LV</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">LuxeVisuals</div>
+  <ul class="footer-links">
+    <li><a href="https://x.com/LuxeVisualsDev" target="_blank">X / Twitter</a></li>
+    <li class="discord-info">Discord: luxevisuals</li>
+  </ul>
+  <p class="footer-copy">© 2026 LuxeVisuals</p>
+</footer>
+</body>
+</html>
