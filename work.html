@@ -1,1 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LuxeVisuals — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: #7A5E28;
+    --black: #080808;
+    --surface: #101010;
+    --surface2: #161616;
+    --border: rgba(201,168,76,0.18);
+    --border-strong: rgba(201,168,76,0.4);
+    --text: #F0EAD6;
+    --text-muted: #8A7F6A;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Jost', sans-serif;
+  }
+
+  body { background: var(--black); color: var(--text); font-family: var(--font-body); font-weight: 300; line-height: 1.7; min-height: 100vh; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem; background: rgba(8,8,8,0.88); backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .nav-logo { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; letter-spacing: 0.12em; color: var(--gold); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; padding: 0.5rem 1rem; border: 0.5px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  .nav-links a:hover { color: var(--gold); border-color: var(--border-strong); }
+
+  /* WORK SECTION */
+  .work {
+    padding: 10rem 4rem 6rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .work-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 4rem; border-bottom: 0.5px solid var(--border); padding-bottom: 2rem;
+  }
+  .section-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .section-title { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; line-height: 1.1; color: var(--text); }
+  .work-header-right { font-size: 0.7rem; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; }
+
+  .work-grid {
+    display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem;
+  }
+  .work-card {
+    position: relative; overflow: hidden; cursor: pointer;
+    background: var(--surface); border: 0.5px solid var(--border);
+    transition: border-color 0.3s;
+  }
+  .work-card:hover { border-color: var(--border-strong); }
+  .work-card:hover .card-overlay { opacity: 1; }
+  .work-card:hover .card-img { transform: scale(1.04); }
+  .work-card.half { grid-column: span 6; }
+
+  .card-img-wrap { overflow: hidden; aspect-ratio: 16/10; }
+  .card-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; background: var(--surface2); }
+
+  .card-overlay {
+    position: absolute; inset: 0; background: rgba(8,8,8,0.7);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s; pointer-events: none;
+  }
+  .card-overlay-text {
+    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); border: 0.5px solid var(--gold); padding: 0.6rem 1.5rem;
+  }
+
+  /* LIGHTBOX */
+  .image-modal {
+    position: fixed; inset: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.85); cursor: pointer; }
+  .modal-content { position: relative; max-width: 90vw; max-height: 90vh; z-index: 1; }
+  .modal-content img { max-width: 90vw; max-height: 90vh; object-fit: contain; border: 1px solid var(--border-strong); }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between;
+    border-top: 0.5px solid var(--border); max-width: 1200px; margin: 0 auto;
+  }
+  .footer-logo { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; letter-spacing: 0.12em; color: var(--gold); }
+  .footer-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .footer-links a { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .discord-info { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+  .footer-copy { font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">LuxeVisuals</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="services.html">Services</a></li>
+  </ul>
+</nav>
+
+<section class="work" id="work">
+  <div class="work-header">
+    <div>
+      <p class="section-label">Selected Work</p>
+      <h2 class="section-title">Portfolio</h2>
+    </div>
+    <p class="work-header-right">Roblox UI & UX Design</p>
+  </div>
+  <div class="work-grid">
+    <!-- Cards inserted by JavaScript -->
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">LuxeVisuals</div>
+  <ul class="footer-links">
+    <li><a href="https://x.com/LuxeVisualsDev" target="_blank">X / Twitter</a></li>
+    <li class="discord-info">Discord: luxevisuals</li>
+  </ul>
+  <p class="footer-copy">© 2026 LuxeVisuals</p>
+</footer>
+
+<script>
+  const workGrid = document.querySelector('.work-grid');
+  const MAX_IMAGES = 20;
+
+  // Lightbox
+  function openModal(src) {
+    const modal = document.createElement('div');
+    modal.classList.add('image-modal');
+    modal.innerHTML = `<div class="modal-backdrop"></div><div class="modal-content"><img src="${src}" alt="Full view"></div>`;
+    document.body.appendChild(modal);
+    modal.querySelector('.modal-backdrop').addEventListener('click', () => modal.remove());
+    const closeOnEsc = (e) => { if (e.key === 'Escape') { modal.remove(); document.removeEventListener('keydown', closeOnEsc); } };
+    document.addEventListener('keydown', closeOnEsc);
+  }
+
+  function createCard(imgSrc, number) {
+    const card = document.createElement('div');
+    card.classList.add('work-card', 'half');
+    const imgWrap = document.createElement('div');
+    imgWrap.classList.add('card-img-wrap');
+    const img = document.createElement('img');
+    img.classList.add('card-img');
+    img.src = imgSrc;
+    img.alt = `Project ${number}`;
+    img.loading = 'lazy';
+    imgWrap.appendChild(img);
+    const overlay = document.createElement('div');
+    overlay.classList.add('card-overlay');
+    overlay.innerHTML = '<span class="card-overlay-text">View Project</span>';
+    card.appendChild(imgWrap);
+    card.appendChild(overlay);
+    card.addEventListener('click', () => openModal(imgSrc));
+    workGrid.appendChild(card);
+  }
+
+  function loadImagesSequentially(index) {
+    if (index > MAX_IMAGES) return;
+    const imgSrc = `${index}.png`;
+    const testImg = new Image();
+    testImg.onload = () => {
+      createCard(imgSrc, index);
+      loadImagesSequentially(index + 1);
+    };
+    testImg.onerror = () => { /* stop */ };
+    testImg.src = imgSrc;
+  }
+  loadImagesSequentially(1);
+</script>
+</body>
+</html>
