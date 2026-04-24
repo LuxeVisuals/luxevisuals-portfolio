@@ -92,30 +92,13 @@
     position: relative;
   }
 
-  .hero-profile {
-    margin-bottom: 1.5rem;
-  }
-
-  .profile-ring {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: conic-gradient(from 0deg, var(--gold-light), var(--gold), var(--gold-dim), var(--gold-light));
-    animation: rotateRing 4s linear infinite;
-    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 4px));
-            mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 4px));
-  }
-
-  .profile-img {
+  /* PLAIN PROFILE IMAGE – no ring, just the image */
+  .profile-img-simple {
     width: 130px;
     height: 130px;
     border-radius: 50%;
     object-fit: cover;
-    position: absolute;
+    margin-bottom: 1.5rem;
     border: 2px solid var(--gold-dim);
   }
 
@@ -244,11 +227,6 @@
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-
-  @keyframes rotateRing {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
 </style>
 </head>
 <body>
@@ -262,11 +240,9 @@
 </nav>
 
 <section class="hero" id="hero">
-  <div class="hero-profile">
-    <div class="profile-ring">
-      <img src="Profile.png" alt="LuxeVisuals Profile" class="profile-img">
-    </div>
-  </div>
+  <!-- JUST THE IMAGE, NO RING, NO ABSOLUTE POSITIONING -->
+  <img src="Profile.png" alt="LuxeVisuals Profile" class="profile-img-simple">
+
   <p class="hero-eyebrow">Roblox UI Designer</p>
   <h1 class="hero-title">Luxe<em>Visuals</em></h1>
   <p class="hero-subtitle">Crafting interfaces that captivate</p>
