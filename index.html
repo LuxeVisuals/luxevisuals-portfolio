@@ -80,18 +80,62 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     text-align: center;
-    padding: 8rem 2rem 4rem;
     position: relative;
-    overflow: hidden;
+    background-color: var(--black);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-top: 8rem; /* space for navbar */
   }
 
-  .hero-bg-lines {
+  .hero-overlay {
     position: absolute;
     inset: 0;
+    background: rgba(8,8,8,0.55);
+    z-index: 0;
     pointer-events: none;
-    opacity: 0.12;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 2rem 4rem;
+  }
+
+  .hero-profile {
+    position: relative;
+    z-index: 2;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-ring {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: conic-gradient(from 0deg, var(--gold-light), var(--gold), var(--gold-dim), var(--gold-light));
+    animation: rotateRing 4s linear infinite;
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 4px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 4px));
+  }
+
+  .profile-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    z-index: 1;
+    border: 2px solid var(--gold-dim);
   }
 
   .hero-eyebrow {
@@ -174,6 +218,7 @@
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    z-index: 2;
     animation: fadeUp 1.4s 0.8s ease both;
   }
 
@@ -232,34 +277,6 @@
     margin-bottom: 2rem;
   }
 
-  .about-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .stat {
-    border-left: 0.5px solid var(--border-strong);
-    padding-left: 1rem;
-  }
-
-  .stat-num {
-    font-family: var(--font-display);
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: var(--gold);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-top: 0.25rem;
-  }
-
   .about-visual {
     position: relative;
     display: flex;
@@ -268,13 +285,13 @@
   }
 
   .about-frame {
+    position: relative; /* FIX: was missing */
     width: 340px;
     height: 340px;
     border: 0.5px solid var(--border-strong);
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
   }
 
   .about-frame::before {
@@ -350,17 +367,12 @@
     transform: scale(1.04);
   }
 
-  .work-card.large { grid-column: span 7; }
-  .work-card.small { grid-column: span 5; }
-  .work-card.wide  { grid-column: span 12; }
-  .work-card.half  { grid-column: span 6; }
+  .work-card.half { grid-column: span 6; }
 
   .card-img-wrap {
     overflow: hidden;
     aspect-ratio: 16/10;
   }
-
-  .work-card.wide .card-img-wrap { aspect-ratio: 21/9; }
 
   .card-img {
     width: 100%;
@@ -369,25 +381,6 @@
     display: block;
     transition: transform 0.5s ease;
     background: var(--surface2);
-  }
-
-  .card-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--surface2);
-    border-bottom: 0.5px solid var(--border);
-  }
-
-  .placeholder-lv {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 300;
-    color: var(--gold-dim);
-    letter-spacing: 0.1em;
-    opacity: 0.5;
   }
 
   .card-overlay {
@@ -409,29 +402,6 @@
     color: var(--gold);
     border: 0.5px solid var(--gold);
     padding: 0.6rem 1.5rem;
-  }
-
-  .card-meta {
-    padding: 1rem 1.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 0.5px solid var(--border);
-  }
-
-  .card-title {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--text);
-    letter-spacing: 0.05em;
-  }
-
-  .card-tag {
-    font-size: 0.55rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold-dim);
   }
 
   /* SERVICES */
@@ -494,6 +464,37 @@
     line-height: 1.9;
   }
 
+  /* LIGHTBOX MODAL */
+  .image-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    cursor: pointer;
+  }
+
+  .modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    z-index: 1;
+  }
+
+  .modal-content img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border: 1px solid var(--border-strong);
+  }
+
   /* FOOTER */
   footer {
     padding: 4rem;
@@ -546,6 +547,11 @@
     50%       { opacity: 1;   transform: scaleY(1.15); }
   }
 
+  @keyframes rotateRing {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
   .reveal {
     opacity: 0;
     transform: translateY(30px);
@@ -571,20 +577,23 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero" id="hero">
-  <svg class="hero-bg-lines" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <line x1="0" y1="0" x2="400" y2="900" stroke="#C9A84C" stroke-width="0.5"/>
-    <line x1="1400" y1="0" x2="1000" y2="900" stroke="#C9A84C" stroke-width="0.5"/>
-    <line x1="200" y1="0" x2="600" y2="900" stroke="#C9A84C" stroke-width="0.3"/>
-    <line x1="1200" y1="0" x2="800" y2="900" stroke="#C9A84C" stroke-width="0.3"/>
-  </svg>
+<section class="hero" id="hero" style="background-image: url('Banner.png');">
+  <div class="hero-overlay"></div>
 
-  <p class="hero-eyebrow">Roblox UI Designer</p>
-  <h1 class="hero-title">Luxe<em>Visuals</em></h1>
-  <p class="hero-subtitle">Crafting interfaces that captivate</p>
-  <div class="hero-divider"></div>
-  <p class="hero-desc">Premium UI/UX design for Roblox experiences — elevating games through considered, beautiful interfaces that players remember.</p>
-  <a class="hero-cta" href="#work">View Portfolio</a>
+  <div class="hero-profile">
+    <div class="profile-ring">
+      <img src="Profile.png" alt="Profile" class="profile-img">
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Roblox UI Designer</p>
+    <h1 class="hero-title">Luxe<em>Visuals</em></h1>
+    <p class="hero-subtitle">Crafting interfaces that captivate</p>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">Premium UI/UX design for Roblox experiences — elevating games through considered, beautiful interfaces that players remember.</p>
+    <a class="hero-cta" href="#work">View Portfolio</a>
+  </div>
 
   <div class="scroll-hint">
     <span>Scroll</span>
@@ -599,16 +608,6 @@
     <h2 class="section-title">Precision in<br><em>every pixel</em></h2>
     <p class="about-body">LuxeVisuals is a dedicated Roblox UI designer with a passion for creating polished, immersive interfaces that blend aesthetic refinement with intuitive function. Every project is approached with the same obsessive attention to detail — because players notice the difference.</p>
     <p class="about-body">Specialising in high-end UI systems, HUDs, menus, and branding that sets games apart.</p>
-    <div class="about-stats">
-      <div class="stat">
-        <div class="stat-num">50+</div>
-        <div class="stat-label">Projects Completed</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">3+</div>
-        <div class="stat-label">Years Experience</div>
-      </div>
-    </div>
   </div>
 
   <div class="about-visual reveal">
@@ -617,7 +616,7 @@
       <span class="corner-accent ca-tr"></span>
       <span class="corner-accent ca-bl"></span>
       <span class="corner-accent ca-br"></span>
-      <svg class="monogram-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <svg class="monogram-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
           <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#E8C97A"/>
@@ -625,7 +624,6 @@
             <stop offset="100%" stop-color="#7A5E28"/>
           </linearGradient>
         </defs>
-        <!-- Stylised LV monogram in gold -->
         <text x="100" y="130" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="110" font-weight="300" fill="url(#goldGrad)" letter-spacing="-8">LV</text>
       </svg>
     </div>
@@ -643,65 +641,7 @@
   </div>
 
   <div class="work-grid">
-    <!-- Card 1 — large -->
-    <div class="work-card large reveal">
-      <div class="card-img-wrap">
-        <div class="card-placeholder"><span class="placeholder-lv">Project 01</span></div>
-      </div>
-      <div class="card-overlay"><span class="card-overlay-text">View Project</span></div>
-      <div class="card-meta">
-        <span class="card-title">Main Menu UI</span>
-        <span class="card-tag">Interface Design</span>
-      </div>
-    </div>
-
-    <!-- Card 2 — small -->
-    <div class="work-card small reveal">
-      <div class="card-img-wrap">
-        <div class="card-placeholder"><span class="placeholder-lv">Project 02</span></div>
-      </div>
-      <div class="card-overlay"><span class="card-overlay-text">View Project</span></div>
-      <div class="card-meta">
-        <span class="card-title">HUD System</span>
-        <span class="card-tag">Game UI</span>
-      </div>
-    </div>
-
-    <!-- Card 3 — half -->
-    <div class="work-card half reveal">
-      <div class="card-img-wrap">
-        <div class="card-placeholder"><span class="placeholder-lv">Project 03</span></div>
-      </div>
-      <div class="card-overlay"><span class="card-overlay-text">View Project</span></div>
-      <div class="card-meta">
-        <span class="card-title">Inventory Screen</span>
-        <span class="card-tag">UI Design</span>
-      </div>
-    </div>
-
-    <!-- Card 4 — half -->
-    <div class="work-card half reveal">
-      <div class="card-img-wrap">
-        <div class="card-placeholder"><span class="placeholder-lv">Project 04</span></div>
-      </div>
-      <div class="card-overlay"><span class="card-overlay-text">View Project</span></div>
-      <div class="card-meta">
-        <span class="card-title">Shop Interface</span>
-        <span class="card-tag">UI Design</span>
-      </div>
-    </div>
-
-    <!-- Card 5 — wide -->
-    <div class="work-card wide reveal">
-      <div class="card-img-wrap">
-        <div class="card-placeholder"><span class="placeholder-lv">Project 05</span></div>
-      </div>
-      <div class="card-overlay"><span class="card-overlay-text">View Project</span></div>
-      <div class="card-meta">
-        <span class="card-title">Full Game UI Kit</span>
-        <span class="card-tag">UI System</span>
-      </div>
-    </div>
+    <!-- Cards will be dynamically inserted by JavaScript -->
   </div>
 </section>
 
@@ -743,16 +683,94 @@
 </footer>
 
 <script>
+  // ===== Scroll reveal observer =====
   const reveals = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        obs.unobserve(e.target);
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        revealObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.12 });
-  reveals.forEach(r => obs.observe(r));
+  reveals.forEach(r => revealObserver.observe(r));
+
+  // ===== Lightbox modal =====
+  function openModal(src) {
+    const modal = document.createElement('div');
+    modal.classList.add('image-modal');
+    modal.innerHTML = `
+      <div class="modal-backdrop"></div>
+      <div class="modal-content">
+        <img src="${src}" alt="Full view">
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    const backdrop = modal.querySelector('.modal-backdrop');
+    backdrop.addEventListener('click', () => modal.remove());
+
+    const closeOnEsc = (e) => {
+      if (e.key === 'Escape') {
+        modal.remove();
+        document.removeEventListener('keydown', closeOnEsc);
+      }
+    };
+    document.addEventListener('keydown', closeOnEsc);
+  }
+
+  // ===== Dynamic portfolio loader =====
+  const workGrid = document.querySelector('.work-grid');
+  const MAX_IMAGES = 20;
+
+  function createCard(imgSrc, number) {
+    const card = document.createElement('div');
+    card.classList.add('work-card', 'half', 'reveal');
+
+    // Image wrapper
+    const imgWrap = document.createElement('div');
+    imgWrap.classList.add('card-img-wrap');
+
+    const img = document.createElement('img');
+    img.classList.add('card-img');
+    img.src = imgSrc;
+    img.alt = `Project ${number}`;
+    img.loading = 'lazy';
+
+    imgWrap.appendChild(img);
+
+    // Hover overlay
+    const overlay = document.createElement('div');
+    overlay.classList.add('card-overlay');
+    overlay.innerHTML = '<span class="card-overlay-text">View Project</span>';
+
+    card.appendChild(imgWrap);
+    card.appendChild(overlay);
+
+    // Click → open lightbox
+    card.addEventListener('click', () => openModal(imgSrc));
+
+    workGrid.appendChild(card);
+    revealObserver.observe(card); // so it gets animated on scroll
+  }
+
+  function loadImagesSequentially(index) {
+    if (index > MAX_IMAGES) return;
+    const imgSrc = `${index}.png`;
+    const testImg = new Image();
+    testImg.onload = () => {
+      createCard(imgSrc, index);
+      loadImagesSequentially(index + 1);
+    };
+    testImg.onerror = () => {
+      // Stop trying further numbers (assumes no gaps)
+      // Silently ends the chain.
+    };
+    testImg.src = imgSrc;
+  }
+
+  // Start loading 1.png, 2.png, ...
+  loadImagesSequentially(1);
 </script>
 
 </body>
